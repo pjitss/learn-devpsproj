@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                // Get some code from a GitHub repository
+                git 'https://github.com/Dhiren-sys/hello-world.git'
+
+                // Run Maven on a Unix agent.
+                // sh "/jenkins/maven/bin/mvn -Dmaven.test.failure.ignore=true clean install"
+
+                // To run Maven on a Windows agent, use
+                 bat "D:/devops-practices/maven/bin/mvn -Dmaven.test.failure.ignore=true clean install"
+            }
+
+        }
+        
+        stage('Deploy') {
+            steps {
+                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://192.168.3.16:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
+            }
+        }
+        stage('Deploy to Prod') {
+            steps {
+                    input 'Do you want to proceed this in Prod'
+                   deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://192.168.3.17:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
+            }
+        }
+    }
+}
