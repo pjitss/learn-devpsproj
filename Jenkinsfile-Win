@@ -1,7 +1,11 @@
 pipeline {
-    agent any
-
+   agent any
     stages {
+        stage("Env Variables") {
+            environment {
+                UAT = "192.168.3.16"
+                Prod = "192.168.3.17"
+            }
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
@@ -18,13 +22,13 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://$UAT:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
+                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://${env.UAT}:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
         stage('Deploy to Prod') {
             steps {
                     input 'Do you want to proceed this in Prod'
-                   deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://$Prod:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
+                   deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://${env.Prod}:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
     }
