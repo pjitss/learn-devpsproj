@@ -22,7 +22,8 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://192.168.3.16:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
+                     echo $UAT $Prod
+                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://${UAT}:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
         stage('Deploy to Prod') {
