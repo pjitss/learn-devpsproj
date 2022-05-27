@@ -22,7 +22,7 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                     echo $UAT $Prod
+                     echo "Servers are ${UAT} ${Prod}"
                     deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://${UAT}:8080/')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
