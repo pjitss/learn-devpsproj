@@ -1,10 +1,10 @@
 pipeline {
    agent any
      environment {
-          UAT = "192.168.3.16"
-          UATURL = "http://${UAT}:8080/"
-         Prod = "192.168.3.17"
-         ProdURL = "http://${Prod}:8080/"
+          UAT_IP = "192.168.3.16"
+          UAT_URL = "http://${UAT_IP}:8080/"
+         Prod_IP = "192.168.3.17"
+         Prod_URL = "http://${Prod_IP}:8080/"
       }
 
     stages {
@@ -24,15 +24,15 @@ pipeline {
         
         stage('Deploy') {
             steps {
-                     echo "Servers are 'http://${UAT}:8080' ${Prod}"
-                     echo "$UATURL and $ProdURL"
-                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: ${UATURL})], contextPath: null, war: 'webapp\\target\\*.war'
+                     echo "Servers are 'http://${UAT_IP}:8080' ${Prod_URL}"
+                     echo "$UAT_URL and $Prod_URL"
+                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: '${UAT_URL}')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
         stage('Deploy to Prod') {
             steps {
                     input 'Do you want to proceed this in Prod'
-                   deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: ${ProdURL})], contextPath: null, war: 'webapp\\target\\*.war'
+                   deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: '${Prod_URL}')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
     }
