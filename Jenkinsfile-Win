@@ -1,14 +1,11 @@
 pipeline {
    agent any
+     environment {
+          UAT = "192.168.3.16"
+         Prod = "192.168.3.17"
+      }
+
     stages {
-        stage("Env Variables") {
-            steps {
-               environment {
-                   UAT = "192.168.3.16"
-                  Prod = "192.168.3.17"
-               }
-            }   
-        }
         stage('Build') {
             steps {
                 // Get some code from a GitHub repository
