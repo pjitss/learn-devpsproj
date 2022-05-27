@@ -2,10 +2,12 @@ pipeline {
    agent any
     stages {
         stage("Env Variables") {
-            environment {
-                UAT = "192.168.3.16"
-                Prod = "192.168.3.17"
-            }
+            steps {
+               environment {
+                   UAT = "192.168.3.16"
+                  Prod = "192.168.3.17"
+               }
+            }   
         }
         stage('Build') {
             steps {
