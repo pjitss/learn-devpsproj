@@ -2,9 +2,9 @@ pipeline {
    agent any
      environment {
           UAT = "192.168.3.16"
-          UATURL = "http://"${UAT}":8080/"
+          UATURL = "http://'${UAT}':8080/"
          Prod = "192.168.3.17"
-         ProdURL = "http://"${Prod}":8080/"
+         ProdURL = "http://'${Prod}':8080/"
       }
 
     stages {
