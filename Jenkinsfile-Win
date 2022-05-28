@@ -2,7 +2,8 @@ pipeline {
    agent any
      environment {
           UAT_IP = "192.168.3.16"
-          UAT_URL = "http://${UAT_IP}:8080/"
+          UAT_URLSTR = "http://" + java.net.URLEncoder.encode(UAT_IP, "UTF-8") + ":8080/"
+          java.net.URL UAT_URL = new java.net.URL(UAT_URLSTR)
          Prod_IP = "192.168.3.17"
          Prod_URL = "http://${Prod_IP}:8080/"
       }
@@ -26,7 +27,7 @@ pipeline {
             steps {
                      echo "Servers are 'http://${UAT_IP}:8080' ${Prod_URL}"
                      echo "$UAT_URL and $Prod_URL"
-                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: '${UAT_URL}')], contextPath: null, war: 'webapp\\target\\*.war'
+                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'UAT_URL')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
         stage('Deploy to Prod') {
