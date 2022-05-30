@@ -1,18 +1,19 @@
 pipeline {
     agent any
 
-
     stages {
 
           stage('SCM') {
+              steps{
             checkout scm
-          }
+          }}
           stage('SonarQube Analysis') {
+            steps{
             ////def mvn = tool 'Default Maven';
             withSonarQubeEnv() {
             bat "D:/devops-practices/maven/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Dhiren-sys_hello-world_AYETxN-8KimPFJCr5F9S"
             }
-        }
+        }}
 
         stage('Build') {
             steps {
