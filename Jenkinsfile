@@ -9,7 +9,7 @@ pipeline {
           }}
           stage('SonarQube Analysis') {
             steps{
-            ////def mvn = tool 'Default Maven';
+            def mvn = tool 'Maven';
             withSonarQubeEnv() {
             bat "D:/devops-practices/maven/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=Dhiren-sys_hello-world_AYETxN-8KimPFJCr5F9S"
             }
