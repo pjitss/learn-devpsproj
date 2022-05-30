@@ -14,7 +14,7 @@ pipeline {
         stage('SonarQube Analysis') {
           steps{
           withSonarQubeEnv(installationName: 'sonar') {
-            bat "mvn -e clean isntall sonar:sonar -Dsonar.projectKey=Dhiren-sys_hello-world_AYETxN-8KimPFJCr5F9S"
+            bat "mvn -e clean install sonar:sonar -Dsonar.projectKey=Dhiren-sys_hello-world_AYETxN-8KimPFJCr5F9S"
           }}
         }
       }
