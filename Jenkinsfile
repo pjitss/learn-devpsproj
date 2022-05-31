@@ -20,11 +20,11 @@ pipeline {
         }
         stage("quality-gate check") {
             steps{
-			    timeout(time: 1, unit: 'MINUTES') {
-                waitForQualityGate abortPipeline: true
-			    }
-            }
-		}
+			timeout(time: 1, unit: 'MINUTES') {
+                		waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube'
+			}
+            	}
+	    }
 
         stage('Deploy to UAT') {
             steps {
