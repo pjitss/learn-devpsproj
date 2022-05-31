@@ -18,29 +18,15 @@ pipeline {
           }
         }
 
-        stage('Build') {
+        stage('Deploy to UAT') {
             steps {
-                // Get some code from a GitHub repository
-                git 'https://github.com/Dhiren-sys/hello-world.git'
-
-                // Run Maven on a Unix agent.
-                sh "/jenkins/maven/bin/mvn -Dmaven.test.failure.ignore=true clean install"
-
-                // To run Maven on a Windows agent, use
-                // bat "/jenkins/maven/bin/mvn -Dmaven.test.failure.ignore=true clean install"
-            }
-
-        }
-        
-        stage('Deploy') {
-            steps {
-                    deploy adapters: [tomcat8(credentialsId: 'container-deployer', path: '', url: 'http://10.242.1.237:8085/')], contextPath: null, onFailure: false, war: '**/*.war'
+                    deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://192.168.3.18:8080')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
         stage('Deploy to Prod') {
             steps {
                     input 'Do you want to proceed this in Prod'
-                    deploy adapters: [tomcat8(credentialsId: 'container-deployer', path: '', url: 'http://10.242.1.209:8080/')], contextPath: null, onFailure: false, war: '**/*.war'
+                   deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://192.168.3.19:8080')], contextPath: null, war: 'webapp\\target\\*.war'
             }
         }
     }
