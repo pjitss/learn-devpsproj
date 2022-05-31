@@ -21,7 +21,7 @@ pipeline {
         stage("quality-gate check") {
             steps{
 			timeout(time: 1, unit: 'MINUTES') {
-                		waitForQualityGate abortPipeline: false, credentialsId: 'sonarqube'
+                		waitForQualityGate abortPipeline: true, credentialsId: 'sonarqube'
 			}
             	}
 	    }
