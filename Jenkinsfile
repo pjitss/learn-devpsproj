@@ -17,14 +17,6 @@ pipeline {
             }
           }
         }
-
-        stage("Quality Gate check") {
-          steps {
-            timeout(time: 2, unit: 'MINUTES') {
-            waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'            
-            }
-          }
-        }
         
         stage('Deploy to UAT') {
             steps {
