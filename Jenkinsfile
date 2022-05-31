@@ -18,6 +18,14 @@ pipeline {
           }
         }
 
+        stage("Quality Gate check") {
+          steps {
+            timeout(time: 2, unit: 'MINUTES') {
+            waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'            
+            }
+          }
+        }
+        
         stage('Deploy to UAT') {
             steps {
                     deploy adapters: [tomcat8(credentialsId: 'Container deployer', path: '', url: 'http://192.168.3.18:8080')], contextPath: null, war: 'webapp\\target\\*.war'
