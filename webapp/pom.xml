@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>dhiren-maven-project</groupId>
+    <groupId>com.example.maven-project</groupId>
     <artifactId>maven-project</artifactId>
     <version>1.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
@@ -12,7 +12,7 @@
 
   <artifactId>webapp</artifactId>
   <version>Version-1.0.2</version>
-  <groupId>com.example.maven-project</groupId>
+  <groupId>dhiren-maven-project</groupId>
   <packaging>war</packaging>
   <name>Webapp</name>
   <description>Webapp.</description>
