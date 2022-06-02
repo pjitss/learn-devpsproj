@@ -11,7 +11,7 @@
   </parent>
 
   <artifactId>webapp</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>Version-1.0.2</version>
   <groupId>com.example.maven-project</groupId>
   <packaging>war</packaging>
   <name>Webapp</name>
